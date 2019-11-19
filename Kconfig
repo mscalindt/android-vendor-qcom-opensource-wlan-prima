@@ -21,10 +21,6 @@ config PRONTO_WLAN
 
 if PRIMA_WLAN != n || PRONTO_WLAN != n
 
-config PRIMA_WLAN_BTAMP
-	bool "Enable the Prima WLAN BT-AMP feature"
-	default n
-
 config PRIMA_WLAN_LFR
 	bool "Enable the Prima WLAN Legacy Fast Roaming feature"
 	default n
