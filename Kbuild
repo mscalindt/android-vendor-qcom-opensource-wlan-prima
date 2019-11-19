@@ -17,9 +17,6 @@ ifeq ($(KERNEL_BUILD), 0)
 # These are configurable via Kconfig for kernel-based builds
 # Need to explicitly configure for Android-based builds
 
-#Flag to enable BlueTooth AMP feature
-    CONFIG_PRIMA_WLAN_BTAMP := n
-
 #Flag to enable Legacy Fast Roaming(LFR)
     CONFIG_PRIMA_WLAN_LFR := y
 
@@ -120,37 +117,6 @@ WLAN_ROOT=$(KERNEL_TO_BUILD_ROOT_OFFSET)$(WLAN_BLD_DIR)/prima
 endif # ANDROID_BUILD_TOP
 endif # KERNEL_BUILD
 
-ifeq ($(CONFIG_PRIMA_WLAN_BTAMP),y)
-############ BAP ############
-BAP_DIR :=	CORE/BAP
-BAP_INC_DIR :=	$(BAP_DIR)/inc
-BAP_SRC_DIR :=	$(BAP_DIR)/src
-
-BAP_INC := 	-I$(WLAN_ROOT)/$(BAP_INC_DIR) \
-		-I$(WLAN_ROOT)/$(BAP_SRC_DIR)
-
-BAP_OBJS := 	$(BAP_SRC_DIR)/bapApiData.o \
-		$(BAP_SRC_DIR)/bapApiDebug.o \
-		$(BAP_SRC_DIR)/bapApiExt.o \
-		$(BAP_SRC_DIR)/bapApiHCBB.o \
-		$(BAP_SRC_DIR)/bapApiInfo.o \
-		$(BAP_SRC_DIR)/bapApiLinkCntl.o \
-		$(BAP_SRC_DIR)/bapApiLinkSupervision.o \
-		$(BAP_SRC_DIR)/bapApiStatus.o \
-		$(BAP_SRC_DIR)/bapApiTimer.o \
-		$(BAP_SRC_DIR)/bapModule.o \
-		$(BAP_SRC_DIR)/bapRsn8021xAuthFsm.o \
-		$(BAP_SRC_DIR)/bapRsn8021xPrf.o \
-		$(BAP_SRC_DIR)/bapRsn8021xSuppRsnFsm.o \
-		$(BAP_SRC_DIR)/bapRsnAsfPacket.o \
-		$(BAP_SRC_DIR)/bapRsnSsmAesKeyWrap.o \
-		$(BAP_SRC_DIR)/bapRsnSsmEapol.o \
-		$(BAP_SRC_DIR)/bapRsnSsmReplayCtr.o \
-		$(BAP_SRC_DIR)/bapRsnTxRx.o \
-		$(BAP_SRC_DIR)/btampFsm.o \
-		$(BAP_SRC_DIR)/btampHCI.o
-endif
-
 ############ DXE ############
 DXE_DIR :=	CORE/DXE
 DXE_INC_DIR :=	$(DXE_DIR)/inc
@@ -189,10 +155,6 @@ HDD_OBJS := 	$(HDD_SRC_DIR)/wlan_hdd_assoc.o \
 		$(HDD_SRC_DIR)/wlan_hdd_wext.o \
 		$(HDD_SRC_DIR)/wlan_hdd_wmm.o \
 		$(HDD_SRC_DIR)/wlan_hdd_wowl.o
-
-ifeq ($(CONFIG_PRIMA_WLAN_BTAMP),y)
-HDD_OBJS += 	$(HDD_SRC_DIR)/bap_hdd_main.o
-endif
 
 ifeq ($(HAVE_CFG80211),1)
 HDD_OBJS +=	$(HDD_SRC_DIR)/wlan_hdd_cfg80211.o \
@@ -552,10 +514,6 @@ INCS :=		$(DXE_INC) \
 		$(WDA_INC) \
 		$(WDI_INC)
 
-ifeq ($(CONFIG_PRIMA_WLAN_BTAMP),y)
-INCS +=		$(BAP_INC)
-endif
-
 OBJS :=		$(BAP_OBJS) \
 		$(DXE_OBJS) \
 		$(HDD_OBJS) \
@@ -568,10 +526,6 @@ OBJS :=		$(BAP_OBJS) \
 		$(VOSS_OBJS) \
 		$(WDA_OBJS) \
 		$(WDI_OBJS)
-
-ifeq ($(CONFIG_PRIMA_WLAN_BTAMP),y)
-OBJS += 	$(BAP_OBJS)
-endif
 
 EXTRA_CFLAGS += $(INCS)
 EXTRA_CFLAGS += -fno-pic
@@ -673,10 +627,6 @@ endif
 ifeq ($(CONFIG_QCOM_TDLS),y)
 CDEFINES += -DFEATURE_WLAN_TDLS
 CDEFINES += -DCONFIG_TDLS_IMPLICIT
-endif
-
-ifeq ($(CONFIG_PRIMA_WLAN_BTAMP),y)
-CDEFINES += -DWLAN_BTAMP_FEATURE
 endif
 
 ifeq ($(CONFIG_PRIMA_WLAN_LFR),y)
