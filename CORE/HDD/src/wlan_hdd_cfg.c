@@ -4107,8 +4107,9 @@ static char *i_trim(char *str)
 
    /* Find the first non white-space*/
    for (ptr = str; i_isspace(*ptr); ptr++);
-      if (*ptr == '\0')
-         return str;
+
+   if (*ptr == '\0')
+      return str;
 
    /* This is the new start of the string*/
    str = ptr;
@@ -4116,8 +4117,9 @@ static char *i_trim(char *str)
    /* Find the last non white-space */
    ptr += strlen(ptr) - 1;
    for (; ptr != str && i_isspace(*ptr); ptr--);
-      /* Null terminate the following character */
-      ptr[1] = '\0';
+
+   /* Null terminate the following character */
+   ptr[1] = '\0';
 
    return str;
 }
@@ -5581,209 +5583,210 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
       hddLog(LOGE,"Failure: Could not pass on WNI_CFG_NTH_BEACON_FILTER configuration info to CCM");
    }
 
-     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ENABLE_LTE_COEX, pConfig->enableLTECoex,
-        NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-     {
-        fStatus = FALSE;
-        hddLog(LOGE, "Could not pass on WNI_CFG_ENABLE_LTE_COEX to CCM");
-     }
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ENABLE_LTE_COEX, pConfig->enableLTECoex,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE, "Could not pass on WNI_CFG_ENABLE_LTE_COEX to CCM");
+   }
 
-     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ENABLE_PHY_AGC_LISTEN_MODE, pConfig->nEnableListenMode,
-        NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-     {
-        fStatus = FALSE;
-        hddLog(LOGE, "Could not pass on WNI_CFG_ENABLE_PHY_AGC_LISTEN_MODE to CCM");
-     }
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ENABLE_PHY_AGC_LISTEN_MODE, pConfig->nEnableListenMode,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE, "Could not pass on WNI_CFG_ENABLE_PHY_AGC_LISTEN_MODE to CCM");
+   }
 
-     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_AP_KEEP_ALIVE_TIMEOUT, pConfig->apKeepAlivePeriod,
-        NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-     {
-        fStatus = FALSE;
-        hddLog(LOGE, "Could not pass on WNI_CFG_AP_KEEP_ALIVE_TIMEOUT to CCM");
-     }
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_AP_KEEP_ALIVE_TIMEOUT, pConfig->apKeepAlivePeriod,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE, "Could not pass on WNI_CFG_AP_KEEP_ALIVE_TIMEOUT to CCM");
+   }
 
-     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_GO_KEEP_ALIVE_TIMEOUT, pConfig->goKeepAlivePeriod,
-        NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-     {
-        fStatus = FALSE;
-        hddLog(LOGE, "Could not pass on WNI_CFG_GO_KEEP_ALIVE_TIMEOUT to CCM");
-     }
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_GO_KEEP_ALIVE_TIMEOUT, pConfig->goKeepAlivePeriod,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE, "Could not pass on WNI_CFG_GO_KEEP_ALIVE_TIMEOUT to CCM");
+   }
 
-     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_AP_LINK_MONITOR_TIMEOUT, pConfig->apLinkMonitorPeriod,
-        NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-     {
-        fStatus = FALSE;
-        hddLog(LOGE, "Could not pass on WNI_CFG_AP_LINK_MONITOR_TIMEOUT to CCM");
-     }
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_AP_LINK_MONITOR_TIMEOUT, pConfig->apLinkMonitorPeriod,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE, "Could not pass on WNI_CFG_AP_LINK_MONITOR_TIMEOUT to CCM");
+   }
 
-    if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_GO_LINK_MONITOR_TIMEOUT, pConfig->goLinkMonitorPeriod,
-        NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-     {
-        fStatus = FALSE;
-        hddLog(LOGE, "Could not pass on WNI_CFG_GO_LINK_MONITOR_TIMEOUT to CCM");
-     }
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_GO_LINK_MONITOR_TIMEOUT, pConfig->goLinkMonitorPeriod,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE, "Could not pass on WNI_CFG_GO_LINK_MONITOR_TIMEOUT to CCM");
+   }
 
 
 #if defined WLAN_FEATURE_VOWIFI
-    if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_RRM_ENABLED, pConfig->fRrmEnable,
-                     NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-    {
-       fStatus = FALSE;
-       hddLog(LOGE,"Failure: Could not pass on WNI_CFG_RRM_ENABLE configuration info to CCM");
-    }
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_RRM_ENABLED, pConfig->fRrmEnable,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE,"Failure: Could not pass on WNI_CFG_RRM_ENABLE configuration info to CCM");
+   }
 
-    if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_RRM_OPERATING_CHAN_MAX, pConfig->nInChanMeasMaxDuration,
-                     NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-    {
-       fStatus = FALSE;
-       hddLog(LOGE,"Failure: Could not pass on WNI_CFG_RRM_OPERATING_CHAN_MAX configuration info to CCM");
-    }
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_RRM_OPERATING_CHAN_MAX, pConfig->nInChanMeasMaxDuration,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE,"Failure: Could not pass on WNI_CFG_RRM_OPERATING_CHAN_MAX configuration info to CCM");
+   }
 
-    if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_RRM_NON_OPERATING_CHAN_MAX, pConfig->nOutChanMeasMaxDuration,
-                     NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-    {
-       fStatus = FALSE;
-       hddLog(LOGE,"Failure: Could not pass on WNI_CFG_RRM_OUT_CHAN_MAX configuration info to CCM");
-    }
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_RRM_NON_OPERATING_CHAN_MAX, pConfig->nOutChanMeasMaxDuration,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE,"Failure: Could not pass on WNI_CFG_RRM_OUT_CHAN_MAX configuration info to CCM");
+   }
 
-    if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_MCAST_BCAST_FILTER_SETTING, pConfig->mcastBcastFilterSetting,
-                     NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_MCAST_BCAST_FILTER_SETTING, pConfig->mcastBcastFilterSetting,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
 #endif
 
-     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_SINGLE_TID_RC, pConfig->bSingleTidRc,
-                      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-     {
-        fStatus = FALSE;
-        hddLog(LOGE,"Failure: Could not pass on WNI_CFG_SINGLE_TID_RC configuration info to CCM");
-     }
-
-     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_TELE_BCN_WAKEUP_EN, pConfig->teleBcnWakeupEn,
-                      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-     {
-        fStatus = FALSE;
-        hddLog(LOGE,"Failure: Could not pass on WNI_CFG_TELE_BCN_WAKEUP_EN configuration info to CCM"  );
-     }
-
-     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_TELE_BCN_TRANS_LI, pConfig->nTeleBcnTransListenInterval,
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_SINGLE_TID_RC, pConfig->bSingleTidRc,
       NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-    {
+   {
+      fStatus = FALSE;
+      hddLog(LOGE,"Failure: Could not pass on WNI_CFG_SINGLE_TID_RC configuration info to CCM");
+   }
+
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_TELE_BCN_WAKEUP_EN, pConfig->teleBcnWakeupEn,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE,"Failure: Could not pass on WNI_CFG_TELE_BCN_WAKEUP_EN configuration info to CCM"  );
+   }
+
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_TELE_BCN_TRANS_LI, pConfig->nTeleBcnTransListenInterval,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   {
       fStatus = FALSE;
       hddLog(LOGE,"Failure: Could not pass on WNI_CFG_TELE_BCN_TRANS_LI configuration info to CCM"  );
-    }
+   }
 
-     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_TELE_BCN_MAX_LI, pConfig->nTeleBcnMaxListenInterval,
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_TELE_BCN_MAX_LI, pConfig->nTeleBcnMaxListenInterval,
       NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-    {
+   {
       fStatus = FALSE;
       hddLog(LOGE,"Failure: Could not pass on WNI_CFG_TELE_BCN_MAX_LI configuration info to CCM"  );
-    }
+   }
 
-     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_TELE_BCN_TRANS_LI_IDLE_BCNS, pConfig->nTeleBcnTransLiNumIdleBeacons,
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_TELE_BCN_TRANS_LI_IDLE_BCNS, pConfig->nTeleBcnTransLiNumIdleBeacons,
       NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-    {
+   {
       fStatus = FALSE;
       hddLog(LOGE,"Failure: Could not pass on WNI_CFG_TELE_BCN_TRANS_LI_IDLE_BCNS configuration info to CCM"  );
-    }
+   }
 
-     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_TELE_BCN_MAX_LI_IDLE_BCNS, pConfig->nTeleBcnMaxLiNumIdleBeacons,
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_TELE_BCN_MAX_LI_IDLE_BCNS, pConfig->nTeleBcnMaxLiNumIdleBeacons,
       NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-    {
+   {
       fStatus = FALSE;
       hddLog(LOGE,"Failure: Could not pass on WNI_CFG_TELE_BCN_MAX_LI_IDLE_BCNS configuration info to CCM"  );
-    }
+   }
 
-     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_RF_SETTLING_TIME_CLK, pConfig->rfSettlingTimeUs,
-        NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-    {
-        fStatus = FALSE;
-        hddLog(LOGE,"Failure: Could not pass on WNI_CFG_RF_SETTLING_TIME_CLK configuration info to CCM"  );
-    }
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_RF_SETTLING_TIME_CLK, pConfig->rfSettlingTimeUs,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE,"Failure: Could not pass on WNI_CFG_RF_SETTLING_TIME_CLK configuration info to CCM"  );
+   }
 
-     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_INFRA_STA_KEEP_ALIVE_PERIOD, pConfig->infraStaKeepAlivePeriod,
-                      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-     {
-        fStatus = FALSE;
-        hddLog(LOGE,"Failure: Could not pass on WNI_CFG_INFRA_STA_KEEP_ALIVE_PERIOD configuration info to CCM"  );
-     }
-    if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_DYNAMIC_PS_POLL_VALUE, pConfig->dynamicPsPollValue,
-                     NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-    {
-       fStatus = FALSE;
-       hddLog(LOGE,"Failure: Could not pass on WNI_CFG_DYNAMIC_PS_POLL_VALUE configuration info to CCM"  );
-    }
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_INFRA_STA_KEEP_ALIVE_PERIOD, pConfig->infraStaKeepAlivePeriod,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE,"Failure: Could not pass on WNI_CFG_INFRA_STA_KEEP_ALIVE_PERIOD configuration info to CCM"  );
+   }
 
-    if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_PS_NULLDATA_AP_RESP_TIMEOUT, pConfig->nNullDataApRespTimeout,
-               NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-    {
-       fStatus = FALSE;
-       hddLog(LOGE,"Failure: Could not pass on WNI_CFG_PS_NULLDATA_DELAY_TIMEOUT configuration info to CCM"  );
-    }
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_DYNAMIC_PS_POLL_VALUE, pConfig->dynamicPsPollValue,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE,"Failure: Could not pass on WNI_CFG_DYNAMIC_PS_POLL_VALUE configuration info to CCM"  );
+   }
 
-    if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_AP_DATA_AVAIL_POLL_PERIOD, pConfig->apDataAvailPollPeriodInMs,
-               NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-    {
-        fStatus = FALSE;
-        hddLog(LOGE,"Failure: Could not pass on WNI_CFG_AP_DATA_AVAIL_POLL_PERIOD configuration info to CCM"  );
-    }
-    if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_FRAGMENTATION_THRESHOLD, pConfig->FragmentationThreshold,
-                   NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
-    {
-        fStatus = FALSE;
-        hddLog(LOGE,"Failure: Could not pass on WNI_CFG_FRAGMENTATION_THRESHOLD configuration info to CCM"  );
-    }
-    if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_RTS_THRESHOLD, pConfig->RTSThreshold,
-                        NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
-    {
-        fStatus = FALSE;
-        hddLog(LOGE,"Failure: Could not pass on WNI_CFG_RTS_THRESHOLD configuration info to CCM"  );
-    }
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_PS_NULLDATA_AP_RESP_TIMEOUT, pConfig->nNullDataApRespTimeout,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE,"Failure: Could not pass on WNI_CFG_PS_NULLDATA_DELAY_TIMEOUT configuration info to CCM"  );
+   }
 
-    if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_11D_ENABLED, pConfig->Is11dSupportEnabled,
-                        NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
-    {
-        fStatus = FALSE;
-        hddLog(LOGE,"Failure: Could not pass on WNI_CFG_11D_ENABLED configuration info to CCM"  );
-    }
-    if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_HEART_BEAT_THRESHOLD, pConfig->HeartbeatThresh24,
-                        NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
-    {
-        fStatus = FALSE;
-        hddLog(LOGE,"Failure: Could not pass on WNI_CFG_HEART_BEAT_THRESHOLD configuration info to CCM"  );
-    }
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_AP_DATA_AVAIL_POLL_PERIOD, pConfig->apDataAvailPollPeriodInMs,
+      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE,"Failure: Could not pass on WNI_CFG_AP_DATA_AVAIL_POLL_PERIOD configuration info to CCM"  );
+   }
 
-   if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ENABLE_CLOSE_LOOP,
-                   pConfig->enableCloseLoop, NULL, eANI_BOOLEAN_FALSE)
-       ==eHAL_STATUS_FAILURE)
+   if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_FRAGMENTATION_THRESHOLD, pConfig->FragmentationThreshold,
+      NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE,"Failure: Could not pass on WNI_CFG_FRAGMENTATION_THRESHOLD configuration info to CCM"  );
+   }
+
+   if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_RTS_THRESHOLD, pConfig->RTSThreshold,
+      NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE,"Failure: Could not pass on WNI_CFG_RTS_THRESHOLD configuration info to CCM"  );
+   }
+
+   if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_11D_ENABLED, pConfig->Is11dSupportEnabled,
+      NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE,"Failure: Could not pass on WNI_CFG_11D_ENABLED configuration info to CCM"  );
+   }
+
+   if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_HEART_BEAT_THRESHOLD, pConfig->HeartbeatThresh24,
+      NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE,"Failure: Could not pass on WNI_CFG_HEART_BEAT_THRESHOLD configuration info to CCM"  );
+   }
+
+   if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ENABLE_CLOSE_LOOP, pConfig->enableCloseLoop,
+      NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
    {
       fStatus = FALSE;
       hddLog(LOGE, "Could not pass on WNI_CFG_ENABLE_CLOSE_LOOP to CCM");
    }
 
-   if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_TX_PWR_CTRL_ENABLE,
-                   pConfig->enableAutomaticTxPowerControl, NULL, eANI_BOOLEAN_FALSE)
-                   ==eHAL_STATUS_FAILURE)
+   if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_TX_PWR_CTRL_ENABLE, pConfig->enableAutomaticTxPowerControl,
+      NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
    {
       fStatus = FALSE;
       hddLog(LOGE, "Could not pass on WNI_CFG_TX_PWR_CTRL_ENABLE to CCM");
    }
 
-   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_SHORT_GI_40MHZ,
-      pConfig->ShortGI40MhzEnable, NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_SHORT_GI_40MHZ, pConfig->ShortGI40MhzEnable,
+      NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
    {
       fStatus = FALSE;
       hddLog(LOGE, "Could not pass on WNI_CFG_SHORT_GI_40MHZ to CCM");
    }
 
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ENABLE_MC_ADDR_LIST, pConfig->fEnableMCAddrList,
+      NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE, "Could not pass on WNI_CFG_ENABLE_MC_ADDR_LIST to CCM");
+   }
 
-     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ENABLE_MC_ADDR_LIST, pConfig->fEnableMCAddrList,
-        NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-     {
-        fStatus = FALSE;
-        hddLog(LOGE, "Could not pass on WNI_CFG_ENABLE_MC_ADDR_LIST to CCM");
-     }
-
-     /* cache the value configured in fwr */
-     pHddCtx->mc_list_cfg_in_fwr = pConfig->fEnableMCAddrList;
+   /* cache the value configured in fwr */
+   pHddCtx->mc_list_cfg_in_fwr = pConfig->fEnableMCAddrList;
 
 #ifdef WLAN_FEATURE_11AC
    /* Based on cfg.ini, update the Basic MCS set, RX/TX MCS map in the cfg.dat */
@@ -5848,64 +5851,62 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
    }
 #endif
 
-     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_NUM_BUFF_ADVERT,pConfig->numBuffAdvert,
-        NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
-     {
-        fStatus = FALSE;
-        hddLog(LOGE, "Could not pass on WNI_CFG_NUM_BUFF_ADVERT to CCM");
-     }
+   if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_NUM_BUFF_ADVERT,pConfig->numBuffAdvert,
+      NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE, "Could not pass on WNI_CFG_NUM_BUFF_ADVERT to CCM");
+   }
 
-     if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_HT_RX_STBC,
-                     pConfig->enableRxSTBC, NULL, eANI_BOOLEAN_FALSE)
-         ==eHAL_STATUS_FAILURE)
-     {
-         fStatus = FALSE;
-         hddLog(LOGE, "Could not pass on WNI_CFG_HT_RX_STBC to CCM");
-     }
+   if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_HT_RX_STBC, pConfig->enableRxSTBC,
+      NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE, "Could not pass on WNI_CFG_HT_RX_STBC to CCM");
+   }
 
-     ccmCfgGetInt(pHddCtx->hHal, WNI_CFG_HT_CAP_INFO, &temp32);
-     temp16 = temp32 & 0xffff;
-     htCapInfo = (tSirMacHTCapabilityInfo *)&temp16;
-     htCapInfo->rxSTBC = pConfig->enableRxSTBC;
-     temp32 = temp16;
+   ccmCfgGetInt(pHddCtx->hHal, WNI_CFG_HT_CAP_INFO, &temp32);
+   temp16 = temp32 & 0xffff;
+   htCapInfo = (tSirMacHTCapabilityInfo *)&temp16;
+   htCapInfo->rxSTBC = pConfig->enableRxSTBC;
+   temp32 = temp16;
 
-     if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_HT_CAP_INFO,
-                     temp32, NULL, eANI_BOOLEAN_FALSE)
-         ==eHAL_STATUS_FAILURE)
-     {
-         fStatus = FALSE;
-         hddLog(LOGE, "Could not pass on WNI_CFG_HT_CAP_INFO to CCM");
-     }
+   if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_HT_CAP_INFO, temp32,
+      NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE, "Could not pass on WNI_CFG_HT_CAP_INFO to CCM");
+   }
 
-     if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_VHT_RXSTBC,
-                     pConfig->enableRxSTBC, NULL, eANI_BOOLEAN_FALSE)
-         ==eHAL_STATUS_FAILURE)
-     {
-         fStatus = FALSE;
-         hddLog(LOGE, "Could not pass on WNI_CFG_VHT_RXSTBC to CCM");
-     }
+   if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_VHT_RXSTBC, pConfig->enableRxSTBC,
+      NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE, "Could not pass on WNI_CFG_VHT_RXSTBC to CCM");
+   }
 
 #ifdef WLAN_SOFTAP_VSTA_FEATURE
-     if(pConfig->fEnableVSTASupport)
-     {
-        ccmCfgGetInt(pHddCtx->hHal, WNI_CFG_ASSOC_STA_LIMIT, &val);
-        if( val <= WNI_CFG_ASSOC_STA_LIMIT_STADEF)
-            val = WNI_CFG_ASSOC_STA_LIMIT_STAMAX;
-     }
-     else
-     {
-            val = WNI_CFG_ASSOC_STA_LIMIT_STADEF;
-     }
-     if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ASSOC_STA_LIMIT, val,
-         NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
-     {
-         fStatus = FALSE;
-         hddLog(LOGE,"Failure: Could not pass on WNI_CFG_ASSOC_STA_LIMIT configuration info to CCM"  );
-     }
+   if(pConfig->fEnableVSTASupport)
+   {
+      ccmCfgGetInt(pHddCtx->hHal, WNI_CFG_ASSOC_STA_LIMIT, &val);
+      if( val <= WNI_CFG_ASSOC_STA_LIMIT_STADEF)
+          val = WNI_CFG_ASSOC_STA_LIMIT_STAMAX;
+   }
+   else
+   {
+          val = WNI_CFG_ASSOC_STA_LIMIT_STADEF;
+   }
+
+   if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ASSOC_STA_LIMIT, val,
+      NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE,"Failure: Could not pass on WNI_CFG_ASSOC_STA_LIMIT configuration info to CCM"  );
+   }
 #endif
-   if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ENABLE_LPWR_IMG_TRANSITION,
-                   pConfig->enableLpwrImgTransition, NULL, eANI_BOOLEAN_FALSE)
-       ==eHAL_STATUS_FAILURE)
+
+   if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ENABLE_LPWR_IMG_TRANSITION, pConfig->enableLpwrImgTransition,
+      NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
    {
       fStatus = FALSE;
       hddLog(LOGE, "Could not pass on WNI_CFG_ENABLE_LPWR_IMG_TRANSITION to CCM");
@@ -5917,6 +5918,7 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
       fStatus = FALSE;
       hddLog(LOGE, "Could not pass on WNI_CFG_ENABLE_MCC_ADAPTIVE_SCHED to CCM");
    }
+
    if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_DISABLE_LDPC_WITH_TXBF_AP, pConfig->disableLDPCWithTxbfAP,
       NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
    {
@@ -5953,7 +5955,6 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
    }
 
 #ifdef FEATURE_WLAN_TDLS
-
    if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_TDLS_QOS_WMM_UAPSD_MASK,
                     pConfig->fTDLSUapsdMask, NULL,
                     eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
@@ -5971,6 +5972,7 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
        */
       pConfig->fEnableTDLSBufferSta = FALSE;
    }
+
    if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_TDLS_BUF_STA_ENABLED,
                     pConfig->fEnableTDLSBufferSta, NULL,
                     eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
@@ -5978,6 +5980,7 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
       fStatus = FALSE;
       hddLog(LOGE, "Could not pass on WNI_CFG_TDLS_BUF_STA_ENABLED to CCM");
    }
+
    if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_TDLS_PUAPSD_INACT_TIME,
                     pConfig->fTDLSPuapsdInactivityTimer, NULL,
                     eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
@@ -5985,6 +5988,7 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
       fStatus = FALSE;
       hddLog(LOGE, "Could not pass on WNI_CFG_TDLS_PUAPSD_INACT_TIME to CCM");
    }
+
    if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_TDLS_RX_FRAME_THRESHOLD,
                     pConfig->fTDLSRxFrameThreshold, NULL,
                     eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
@@ -6008,7 +6012,6 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
       fStatus = FALSE;
       hddLog(LOGE, "Could not pass on WNI_CFG_TDLS_WMM_MODE_ENABLED to CCM\n");
    }
-
 #endif
 
    if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ENABLE_ADAPT_RX_DRAIN,
@@ -6044,13 +6047,13 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
       hddLog(LOGE, "Could not pass on WNI_CFG_ATH_DISABLE to CCM");
    }
 
-  if (ccmCfgSetInt(pHddCtx->hHal,
+   if (ccmCfgSetInt(pHddCtx->hHal,
                     WNI_CFG_BTC_ACTIVE_WLAN_LEN,
                     pConfig->cfgBtcActiveWlanLen,
                     NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
    {
-       fStatus = FALSE;
-       hddLog(LOGE, "Could not pass on WNI_BTC_ACTIVE_WLAN_LEN to CCM");
+      fStatus = FALSE;
+      hddLog(LOGE, "Could not pass on WNI_BTC_ACTIVE_WLAN_LEN to CCM");
    }
 
    if (ccmCfgSetInt(pHddCtx->hHal,
@@ -6058,8 +6061,8 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
                     pConfig->cfgBtcActiveBtLen,
                     NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
    {
-       fStatus = FALSE;
-       hddLog(LOGE, "Could not pass on WNI_BTC_ACTIVE_BT_LEN to CCM");
+      fStatus = FALSE;
+      hddLog(LOGE, "Could not pass on WNI_BTC_ACTIVE_BT_LEN to CCM");
    }
 
    if (ccmCfgSetInt(pHddCtx->hHal,
@@ -6067,8 +6070,8 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
                     pConfig->cfgBtcSapActiveWlanLen,
                     NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
    {
-       fStatus = FALSE;
-       hddLog(LOGE, "Could not pass on WNI_BTC_ACTIVE_WLAN_LEN to CCM");
+      fStatus = FALSE;
+      hddLog(LOGE, "Could not pass on WNI_BTC_ACTIVE_WLAN_LEN to CCM");
    }
 
    if (ccmCfgSetInt(pHddCtx->hHal,
@@ -6076,8 +6079,8 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
                     pConfig->cfgBtcSapActiveBtLen,
                     NULL, eANI_BOOLEAN_FALSE) == eHAL_STATUS_FAILURE)
    {
-       fStatus = FALSE;
-       hddLog(LOGE, "Could not pass on WNI_BTC_ACTIVE_BT_LEN to CCM");
+      fStatus = FALSE;
+      hddLog(LOGE, "Could not pass on WNI_BTC_ACTIVE_BT_LEN to CCM");
    }
 
    if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ASD_PROBE_INTERVAL,
@@ -6403,6 +6406,7 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
       fStatus = FALSE;
       hddLog(LOGE, "Could not pass on WNI_CFG_DISABLE_SCAN_DURING_SCO to CCM");
    }
+
    if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ENABLE_CONC_BMISS,
                    pConfig->enable_conc_bmiss, NULL, eANI_BOOLEAN_FALSE)
        ==eHAL_STATUS_FAILURE)
@@ -6410,6 +6414,7 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
       fStatus = FALSE;
       hddLog(LOGE, "Could not pass on WNI_CFG_ENABLE_CONC_BMISS to CCM");
    }
+
    if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ENABLE_UNITS_BWAIT,
                    pConfig->enable_units_bwait, NULL, eANI_BOOLEAN_FALSE)
        ==eHAL_STATUS_FAILURE)
@@ -6453,6 +6458,7 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
       fStatus = FALSE;
       hddLog(LOGE, "Couldn't pass WNI_CFG_BTC_2M_DYN_LONG_BT_LEN to CCM");
    }
+
    if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_BTC_2M_DYN_LONG_BT_EXT_LEN,
                    pConfig->btc_dyn_bt_ext_len, NULL,
                    eANI_BOOLEAN_FALSE)
@@ -6461,6 +6467,7 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
       fStatus = FALSE;
       hddLog(LOGE, "Couldn't pass WNI_CFG_BTC_2M_DYN_LONG_BT_EXT_LEN to CCM");
    }
+
    if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_BTC_2M_DYN_LONG_NUM_BT_EXT,
                    pConfig->btc_dyn_num_bt_ext, NULL,
                    eANI_BOOLEAN_FALSE)
@@ -6469,8 +6476,6 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
       fStatus = FALSE;
       hddLog(LOGE, "Couldn't pass WNI_CFG_BTC_2M_DYN_LONG_NUM_BT_EXT to CCM");
    }
-
-
 
    return fStatus;
 }
