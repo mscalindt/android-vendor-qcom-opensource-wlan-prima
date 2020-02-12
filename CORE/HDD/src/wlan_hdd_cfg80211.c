@@ -87,9 +87,6 @@
 #include "wlan_hdd_trace.h"
 #include "vos_types.h"
 #include "vos_trace.h"
-#ifdef WLAN_BTAMP_FEATURE
-#include "bap_hdd_misc.h"
-#endif
 #include <qc_sap_ioctl.h>
 #include "wlan_hdd_tdls.h"
 #include "wlan_hdd_wmm.h"
@@ -12508,24 +12505,6 @@ int __wlan_hdd_cfg80211_change_iface( struct wiphy *wiphy,
     pConfig = pHddCtx->cfg_ini;
     wdev = ndev->ieee80211_ptr;
 
-#ifdef WLAN_BTAMP_FEATURE
-    if((NL80211_IFTYPE_P2P_CLIENT == type)||
-       (NL80211_IFTYPE_ADHOC == type)||
-       (NL80211_IFTYPE_AP == type)||
-       (NL80211_IFTYPE_P2P_GO == type))
-    {
-        pHddCtx->isAmpAllowed = VOS_FALSE;
-        // stop AMP traffic
-        status = WLANBAP_StopAmp();
-        if(VOS_STATUS_SUCCESS != status )
-        {
-            pHddCtx->isAmpAllowed = VOS_TRUE;
-            hddLog(VOS_TRACE_LEVEL_FATAL,
-                   "%s: Failed to stop AMP", __func__);
-            return -EINVAL;
-        }
-    }
-#endif //WLAN_BTAMP_FEATURE
     /* Reset the current device mode bit mask*/
     wlan_hdd_clear_concurrency_mode(pHddCtx, pAdapter->device_mode);
 
@@ -12908,14 +12887,6 @@ done:
         hddDevTmLevelChangedHandler(pHddCtx->parent_dev, 0);
     }
 
-#ifdef WLAN_BTAMP_FEATURE
-    if((NL80211_IFTYPE_STATION == type) && (pHddCtx->concurrency_mode <= 1) &&
-       (pHddCtx->no_of_open_sessions[WLAN_HDD_INFRA_STATION] <=1))
-    {
-        //we are ok to do AMP
-        pHddCtx->isAmpAllowed = VOS_TRUE;
-    }
-#endif //WLAN_BTAMP_FEATURE
     EXIT();
     return 0;
 }
@@ -15675,15 +15646,6 @@ int __wlan_hdd_cfg80211_scan( struct wiphy *wiphy,
     cfg_param = pHddCtx->cfg_ini;
     pScanInfo = &pHddCtx->scan_info;
 
-#ifdef WLAN_BTAMP_FEATURE
-    //Scan not supported when AMP traffic is on.
-    if (VOS_TRUE == WLANBAP_AmpSessionOn())
-    {
-        hddLog(VOS_TRACE_LEVEL_ERROR,
-                "%s: No scanning when AMP is on", __func__);
-        return -EOPNOTSUPP;
-    }
-#endif
     //Scan on any other interface is not supported.
     if (pAdapter->device_mode == WLAN_HDD_SOFTAP)
     {
@@ -17505,17 +17467,6 @@ static int __wlan_hdd_cfg80211_connect( struct wiphy *wiphy,
     status = wlan_hdd_reassoc_bssid_hint(pAdapter, req);
     if (0 == status)
         return status;
-
-
-#ifdef WLAN_BTAMP_FEATURE
-    //Infra connect not supported when AMP traffic is on.
-    if( VOS_TRUE == WLANBAP_AmpSessionOn() )
-    {
-        hddLog(VOS_TRACE_LEVEL_ERROR,
-                "%s: No connection when AMP is on", __func__);
-        return -ECONNREFUSED;
-    }
-#endif
 
     //If Device Mode is Station Concurrent Sessions Exit BMps
     //P2P Mode will be taken care in Open/close adapter
