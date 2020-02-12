@@ -76,8 +76,7 @@
   Function declarations and documenation
   ------------------------------------------------------------------------*/
 
-#if (LINUX_VERSION_CODE <= KERNEL_VERSION(3,19,0)) || \
-	defined(WLAN_BTAMP_FEATURE)
+#if (LINUX_VERSION_CODE <= KERNEL_VERSION(3,19,0))
 
 VOS_STATUS vos_crypto_init( v_U32_t *phCryptProv );
 
@@ -100,8 +99,7 @@ VOS_STATUS vos_crypto_deinit( v_U32_t hCryptProv );
 */
 VOS_STATUS vos_rand_get_bytes( v_U32_t handle, v_U8_t *pbBuf, v_U32_t numBytes );
 
-#if (LINUX_VERSION_CODE <= KERNEL_VERSION(3,19,0)) || \
-	defined(WLAN_BTAMP_FEATURE)
+#if (LINUX_VERSION_CODE <= KERNEL_VERSION(3,19,0))
 
 /**
  * vos_sha1_hmac_str
