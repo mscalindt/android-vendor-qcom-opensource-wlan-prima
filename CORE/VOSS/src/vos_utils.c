@@ -81,8 +81,7 @@
  * Global Data Definitions
  * -------------------------------------------------------------------------*/
 
-#if (LINUX_VERSION_CODE <= KERNEL_VERSION(3,19,0)) || \
-	defined(WLAN_BTAMP_FEATURE)
+#if (LINUX_VERSION_CODE <= KERNEL_VERSION(3,19,0))
 extern struct crypto_ahash *wcnss_wlan_crypto_alloc_ahash(const char *alg_name,
                                                           unsigned int type,
                                                           unsigned int mask);
@@ -196,8 +195,7 @@ VOS_STATUS vos_rand_get_bytes( v_U32_t cryptHandle, v_U8_t *pbBuf, v_U32_t numBy
 }
 
 
-#if (LINUX_VERSION_CODE <= KERNEL_VERSION(3,19,0)) || \
-	defined(WLAN_BTAMP_FEATURE)
+#if (LINUX_VERSION_CODE <= KERNEL_VERSION(3,19,0))
 /**
  * vos_sha1_hmac_str
  *

@@ -1553,13 +1553,6 @@ typedef enum
 #define CFG_ENABLE_BTAMP_MAX                    ( 1 )
 #define CFG_ENABLE_BTAMP_DEFAULT                ( 0 )
 
-#ifdef WLAN_BTAMP_FEATURE
-#define CFG_BT_AMP_PREFERRED_CHANNEL_NAME          "BtAmpPreferredChannel"
-#define CFG_BT_AMP_PREFERRED_CHANNEL_MIN           (1)
-#define CFG_BT_AMP_PREFERRED_CHANNEL_MAX           (11)
-#define CFG_BT_AMP_PREFERRED_CHANNEL_DEFAULT       (1)
-#endif //WLAN_BTAMP_FEATURE
-
 #define CFG_BAND_CAPABILITY_NAME          "BandCapability"
 #define CFG_BAND_CAPABILITY_MIN           (0)
 #define CFG_BAND_CAPABILITY_MAX           (2)
@@ -3584,9 +3577,6 @@ typedef struct
    /* RF Settling Time Clock */
    v_U32_t                     rfSettlingTimeUs;
    v_U8_t                      enableBtAmp;
-#ifdef WLAN_BTAMP_FEATURE
-   v_U8_t                      preferredChannel;
-#endif //WLAN_BTAMP_FEATURE
 
    v_U8_t                      dynamicPsPollValue;
    v_BOOL_t                    AddTSWhenACMIsOff;
