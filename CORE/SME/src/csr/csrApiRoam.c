@@ -313,9 +313,6 @@ void csrRoamJoinRetryTimerHandler(void *pv);
 #endif
 void limInitOperatingClasses( tHalHandle hHal );
 extern void SysProcessMmhMsg(tpAniSirGlobal pMac, tSirMsgQ* pMsg);
-#ifdef WLAN_BTAMP_FEATURE
-extern void btampEstablishLogLinkHdlr(void* pMsg);
-#endif
 static void csrSerDesUnpackDiassocRsp(tANI_U8 *pBuf, tSirSmeDisassocRsp *pRsp);
 void csrReinitPreauthCmd(tpAniSirGlobal pMac, tSmeCmd *pCommand);
 
@@ -11129,9 +11126,6 @@ void csrRoamCheckForLinkStatusChange( tpAniSirGlobal pMac, tSirSmeRsp *pSirMsg )
             
         case eWNI_SME_BTAMP_LOG_LINK_IND:
             smsLog( pMac, LOG1, FL("Establish logical link req from HCI serialized through MC thread"));
-#ifdef WLAN_BTAMP_FEATURE
-            btampEstablishLogLinkHdlr( pSirMsg );
-#endif
             break;
         case eWNI_SME_RSSI_IND:
             smsLog( pMac, LOG1, FL("RSSI indication from TL serialized through MC thread"));
