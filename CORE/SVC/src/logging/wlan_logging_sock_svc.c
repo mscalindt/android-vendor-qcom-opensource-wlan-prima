@@ -461,6 +461,7 @@ static int wlan_queue_pkt_stats_for_app(struct sk_buff *skb_to_free)
 	return ret;
 }
 
+#ifdef FEATURE_WLAN_DIAG_SUPPORT
 int wlan_pkt_stats_to_user(void *perPktStat)
 {
 	bool wake_up_thread = false;
@@ -593,6 +594,13 @@ int wlan_pkt_stats_to_user(void *perPktStat)
 	}
 	return 0;
 }
+#else
+int wlan_pkt_stats_to_user(void *perPktStat)
+{
+	return 0;
+}
+#endif
+
 
 void wlan_disable_and_flush_pkt_stats()
 {
