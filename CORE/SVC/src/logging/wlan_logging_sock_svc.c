@@ -1097,7 +1097,7 @@ static int send_filled_buffers_to_user(void)
 	return ret;
 }
 
-
+#ifdef FEATURE_WLAN_DIAG_SUPPORT
 static int send_per_pkt_stats_to_user(void)
 {
 	int ret = -1;
@@ -1216,6 +1216,12 @@ err:
 
 	return ret;
 }
+#else
+static int send_per_pkt_stats_to_user(void)
+{
+	return 0;
+}
+#endif
 
 /**
  * wlan_logging_thread() - The WLAN Logger thread
