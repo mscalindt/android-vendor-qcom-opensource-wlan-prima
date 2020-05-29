@@ -1665,7 +1665,7 @@ VOS_STATUS vos_free_context( v_VOID_t *pVosContext, VOS_MODULE_ID moduleID,
 
 } /* vos_free_context() */
 
-
+#ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
 bool vos_is_log_report_in_progress(void)
 {
     return wlan_is_log_report_in_progress();
@@ -1675,9 +1675,6 @@ void vos_reset_log_report_in_progress(void)
 {
     return wlan_reset_log_report_in_progress();
 }
-
-
-
 
 int vos_set_log_completion(uint32 is_fatal,
                             uint32 indicator,
@@ -1694,8 +1691,6 @@ void vos_get_log_and_reset_completion(uint32 *is_fatal,
 {
     wlan_get_log_and_reset_completion(is_fatal, indicator, reason_code, reset);
 }
-
-
 
 void vos_send_fatal_event_done(void)
 {
@@ -1738,6 +1733,7 @@ void vos_send_fatal_event_done(void)
          vos_wlanRestart(VOS_GET_MSG_BUFF_FAILURE);
     }
 }
+#endif /* WLAN_LOGGING_SOCK_SVC_ENABLE */
 
 /**
  * vos_isFatalEventEnabled()
@@ -1779,6 +1775,7 @@ v_BOOL_t vos_isFatalEventEnabled(void)
   \return VOS_STATUS_SUCCESS - if command is sent successfully.
           VOS_STATUS_E_FAILURE - if command is not sent successfully.
   --------------------------------------------------------------------------*/
+#ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
 VOS_STATUS __vos_fatal_event_logs_req( uint32_t is_fatal,
                         uint32_t indicator,
                         uint32_t reason_code,
@@ -1885,7 +1882,18 @@ VOS_STATUS __vos_fatal_event_logs_req( uint32_t is_fatal,
     else
         return VOS_STATUS_E_FAILURE;
 }
+#else
+__inline VOS_STATUS __vos_fatal_event_logs_req(uint32_t is_fatal,
+					       uint32_t indicator,
+					       uint32_t reason_code,
+					       bool wait_required,
+					       bool dump_vos_trace)
+{
+	return VOS_STATUS_SUCCESS;
+}
+#endif /* WLAN_LOGGING_SOCK_SVC_ENABLE */
 
+#ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
 VOS_STATUS vos_fatal_event_logs_req( uint32_t is_fatal,
                         uint32_t indicator,
                         uint32_t reason_code,
@@ -1901,6 +1909,16 @@ VOS_STATUS vos_fatal_event_logs_req( uint32_t is_fatal,
 
     return status;
 }
+#else
+__inline VOS_STATUS vos_fatal_event_logs_req(uint32_t is_fatal,
+					     uint32_t indicator,
+					     uint32_t reason_code,
+					     bool wait_required,
+					     bool dump_vos_trace)
+{
+	return VOS_STATUS_SUCCESS;
+}
+#endif /* WLAN_LOGGING_SOCK_SVC_ENABLE */
 
 /**---------------------------------------------------------------------------
 
@@ -1916,22 +1934,36 @@ VOS_STATUS vos_fatal_event_logs_req( uint32_t is_fatal,
           VOS_STATUS_E_FAILURE - the pkt queue handler has reported
           a failure.
   --------------------------------------------------------------------------*/
-
+#ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
 VOS_STATUS vos_process_done_indication(v_U8_t type, v_U32_t reason_code)
 {
     wlan_process_done_indication(type, reason_code);
     return VOS_STATUS_SUCCESS;
 }
+#else
+__inline VOS_STATUS vos_process_done_indication(v_U8_t type,
+						v_U32_t reason_code)
+{
+	return VOS_STATUS_SUCCESS;
+}
+#endif
 
 /**
  * vos_flush_host_logs_for_fatal() -flush host logs and send
  * fatal event to upper layer.
  */
+#ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
 void vos_flush_host_logs_for_fatal(void)
 {
    wlan_flush_host_logs_for_fatal();
    return;
 }
+#else
+__inline void vos_flush_host_logs_for_fatal(void)
+{
+	return;
+}
+#endif
 
 
 /**---------------------------------------------------------------------------
@@ -3412,12 +3444,14 @@ void vos_probe_threads(void)
     } else if (ring_id == RING_ID_CONNECTIVITY) {
         vos_context->connectivity_log_level = log_val;
         return;
+#ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
     } else if (ring_id == RING_ID_PER_PACKET_STATS) {
         vos_context->packet_stats_log_level = log_val;
         if (WLAN_LOG_LEVEL_ACTIVE != log_val)
             wlan_disable_and_flush_pkt_stats();
 
         return;
+#endif
     }
 }
 /**
@@ -3621,12 +3655,19 @@ v_U16_t vos_get_rate_from_rateidx(uint32 rateindex)
 	return rate;
 }
 
+#ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
 bool vos_isPktStatsEnabled(void)
 {
     bool value;
     value = wlan_isPktStatsEnabled();
     return (value);
 }
+#else
+__inline bool vos_isPktStatsEnabled(void)
+{
+	return false;
+}
+#endif
 
 #ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
 bool vos_is_wlan_logging_enabled(void)
