@@ -595,7 +595,7 @@ int wlan_pkt_stats_to_user(void *perPktStat)
 	return 0;
 }
 #else
-int wlan_pkt_stats_to_user(void *perPktStat)
+__inline int wlan_pkt_stats_to_user(void *perPktStat)
 {
 	return 0;
 }
