@@ -1217,7 +1217,7 @@ err:
 	return ret;
 }
 #else
-static int send_per_pkt_stats_to_user(void)
+static __inline int send_per_pkt_stats_to_user(void)
 {
 	return 0;
 }
