@@ -169,7 +169,9 @@ static const hdd_freq_chan_map_t freq_chan_map[] = { {2412, 1}, {2417, 2},
 #endif
 #define  WE_SET_RTS_CTS_HTVHT             21
 #define  WE_SET_MONITOR_STATE             22
+#ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
 #define  WE_SET_PKT_STATS_ENABLE_DISABLE  23
+#endif
 #define  WE_SET_PROXIMITY_ENABLE  24
 #define  WE_CAP_TSF    25
 #define  WE_SET_MODULATED_DTIM    26
@@ -6143,6 +6145,7 @@ static int __iw_setint_getnone(struct net_device *dev,
            hdd_request_put(request);
            break;
         }
+#ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
         case WE_SET_PKT_STATS_ENABLE_DISABLE:
         {
             hdd_context_t *pHddCtx = WLAN_HDD_GET_CTX(pAdapter);
@@ -6175,6 +6178,7 @@ static int __iw_setint_getnone(struct net_device *dev,
             }
             break;
         }
+#endif
         case WE_SET_PROXIMITY_ENABLE:
         {
            if (NULL == hHal)
@@ -10619,9 +10623,11 @@ static const struct iw_priv_args we_private_args[] = {
     {   WE_SET_RTS_CTS_HTVHT,
         IW_PRIV_TYPE_INT | IW_PRIV_SIZE_FIXED | 1,
         0, "setRtsCtsHtVht" },
+#ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
     {   WE_SET_PKT_STATS_ENABLE_DISABLE,
         IW_PRIV_TYPE_INT | IW_PRIV_SIZE_FIXED | 1,
         0, "setPktStats" },
+#endif
     {   WE_SET_PROXIMITY_ENABLE,
         IW_PRIV_TYPE_INT | IW_PRIV_SIZE_FIXED | 1,
         0, "setProximity" },
