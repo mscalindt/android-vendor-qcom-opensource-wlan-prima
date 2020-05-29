@@ -6387,6 +6387,7 @@ qca_wlan_vendor_wifi_logger_start_policy
  *
  * Return: 0 on success and errno on failure
  */
+#ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
 static int __wlan_hdd_cfg80211_wifi_logger_start(struct wiphy *wiphy,
                        struct wireless_dev *wdev,
                         const void *data,
@@ -6448,6 +6449,15 @@ static int __wlan_hdd_cfg80211_wifi_logger_start(struct wiphy *wiphy,
     vos_set_ring_log_level(start_log.ringId, start_log.verboseLevel);
     return 0;
 }
+#else
+static __inline int __wlan_hdd_cfg80211_wifi_logger_start(struct wiphy *wiphy,
+						struct wireless_dev *wdev,
+						const void *data,
+						int data_len)
+{
+	return 0;
+}
+#endif /* WLAN_LOGGING_SOCK_SVC_ENABLE */
 
 /**
  * wlan_hdd_cfg80211_wifi_logger_start() - Wrapper function used to enable
