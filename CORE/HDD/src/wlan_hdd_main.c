@@ -14364,8 +14364,8 @@ int hdd_wlan_startup(struct device *dev )
    mutex_init(&pHddCtx->cache_channel_lock);
    goto success;
 
-err_open_cesium_nl_sock:
 #ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
+err_open_cesium_nl_sock:
    hdd_close_cesium_nl_sock();
 #endif
 
@@ -15736,6 +15736,7 @@ VOS_STATUS hdd_issta_p2p_clientconnected(hdd_context_t *pHddCtx)
 /*
  * API to find if the firmware will send logs using DXE channel
  */
+#ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
 v_U8_t hdd_is_fw_logging_enabled(void)
 {
     hdd_context_t *pHddCtx;
@@ -15746,10 +15747,17 @@ v_U8_t hdd_is_fw_logging_enabled(void)
     return (pHddCtx && pHddCtx->cfg_ini->wlanLoggingEnable &&
             pHddCtx->cfg_ini->enableMgmtLogging);
 }
+#else
+__inline v_U8_t hdd_is_fw_logging_enabled(void)
+{
+	return 0; /* 0 - logging disabled; 1 - enabled */
+}
+#endif
 
 /*
  * API to find if the firmware will send trace logs using DXE channel
  */
+#ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
 v_U8_t hdd_is_fw_ev_logging_enabled(void)
 {
     hdd_context_t *pHddCtx;
@@ -15760,6 +15768,12 @@ v_U8_t hdd_is_fw_ev_logging_enabled(void)
     return (pHddCtx && pHddCtx->cfg_ini->wlanLoggingEnable &&
             pHddCtx->cfg_ini->enableFWLogging);
 }
+#else
+__inline v_U8_t hdd_is_fw_ev_logging_enabled(void)
+{
+	return 0; /* 0 - logging disabled; 1 - enabled */
+}
+#endif
 
 /*
  * API to find if there is any session connected
